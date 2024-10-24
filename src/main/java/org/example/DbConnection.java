@@ -11,10 +11,9 @@ public abstract class DbConnection {
     private static final Properties properties = new Properties();//we could maybe do something similar to this, with json stuff, remember.
 
     static {
-        //String resourceName = "~/src/main/resources/db.properties";
-        String resourceName2 = "/db.properties";
+        String resourceName = "/db.properties";// no path needed just the '/'+ 'name'
         //try (InputStream input = DbConnection.class.getClassLoader().getResourceAsStream(resourceName))//.getClassLeader() not actually needed
-        try (InputStream input = DbConnection.class.getResourceAsStream(resourceName2)) {
+        try (InputStream input = DbConnection.class.getResourceAsStream(resourceName)) {
             if (input == null) {
                 System.out.println("Sorry, unable to find db.properties");
                 System.exit(1);
