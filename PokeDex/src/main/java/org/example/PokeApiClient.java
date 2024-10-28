@@ -1,31 +1,48 @@
 package org.example;
 
 import com.google.gson.Gson;
+/*
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import java.net.HttpURLConnection;
+*/
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.*;
 
-
+//while restructuring this class to use java httpclient i should have focused more on what
+//each method does, so that i could organize the code better, and by result have the code more readable
 public class PokeApiClient {
     private static final String API_URL = "https://pokeapi.co/api/v2/pokemon/pikachu"; // URL to fetch Pikachu data
-    private OkHttpClient client;
+    //private OkHttpClient client;
     private Gson gson;
-    private HttpClient client1;
+    private HttpClient client;
 
     public PokeApiClient() {
         //client = new OkHttpClient();
-        HttpClient client1 = HttpClient.newHttpClient();
+        HttpClient client = HttpClient.newHttpClient();
         gson = new Gson();
     }
-    //if (rumore= true){notadisciplinarefacile=true;}
+    //if (rumore = true){notadisciplinarefacile=true;}
+
+    public PokemonData fetchPikachuData() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new IOException("Unexpected response code: " + response.statusCode());
+        }
+
+        String jsonResponse = response.body();
+        return gson.fromJson(jsonResponse, PokemonData.class);
+    }
 
     // Method to fetch Pikachu data from the PokeAPI
-    public PokemonData fetchPikachuData() throws IOException {
+    public PokemonData RubenfetchPikachuData() throws IOException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://pokeapi.co/api/v2/ability/1/"))
                 .build();
@@ -35,19 +52,19 @@ public class PokeApiClient {
         */
 
         /*
-        try (HttpResponse<T> response = client1.sendAsync(request, HttpResponse.BodyHandlers.ofString())) {
+        try (HttpResponse<T> response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())) {
             if(client1.isTerminated()){
                 throw new IOException("Unexpected code " + response);
             }
         }
          */
-        try (client1.send(request, HttpResponse.BodyHandlers.ofString())
+        try (client.send(request, HttpResponse.BodyHandlers.ofString())
                      //.thenApply(HttpResponse::body)
                      //.thenAccept(System.out::println)
                      //.join();
         ) {
-            if(client1.isTerminated()){
-                throw new IOException("Unexpected code " + response);
+            if(client.isTerminated()){
+                throw new IOException("Unexpected code " + client.response);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -64,7 +81,7 @@ public class PokeApiClient {
             String jsonResponse = response.body().string();
             return gson.fromJson(jsonResponse, PokemonData.class);
             */
-            String jsonResponse = client1.toString();
+            String jsonResponse = client.toString();
             return gson.fromJson(jsonResponse, PokemonData.class);
 
         }

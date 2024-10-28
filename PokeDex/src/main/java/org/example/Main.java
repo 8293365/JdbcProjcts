@@ -77,7 +77,6 @@ public class Main {
         // Initialize API client and database connection
         PokeApiClient apiClient = new PokeApiClient();
         RemConnection remConnection = new RemConnection();
-        //Connection connection = remConnection.getConnection();
         Connection connection = remConnection;
 
         try {
@@ -96,7 +95,7 @@ public class Main {
                 System.out.println("Inserted " + rowsAffected + " row(s) into the database.");
             }
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             System.err.println("Failed to fetch Pikachu data: " + e.getMessage());
         } catch (SQLException e) {
             System.err.println("Failed to insert data into the database: " + e.getMessage());

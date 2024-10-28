@@ -20,7 +20,5 @@ public class PokemonData {
     }
 
     @Override
-    public String toString() {
-        return "Pokemon: " + name + ", Height: " + height + ", Weight: " + weight;
-    }
+    public String toString() { return "Pokemon: " + name + ", Height: " + height + ", Weight: " + weight; }
 }
