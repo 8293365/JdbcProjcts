@@ -26,21 +26,9 @@ public class RemConnection {
             e.printStackTrace();
         }
     }
-
-    public void GetConnection(String address, String port, String databaseName, String username, String password) {
-        //stringa di connessione -> jdbc:mysql://127.0.0.1:3306/nomeDB
-        String dbConnectionString = "jdbc:mysql://" + address + ":" + port + "/" + databaseName;
-        //String dbConnectionString = "https://pokeapi.co/api/v2ability";
-        try {
-            var conn = DriverManager.getConnection(dbConnectionString, username, password);
-            if (conn != null)
-                System.out.println("connessione avvenuta");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void WRgetConnection(){
+        getConnection("localshot", "5432", "testdb", "postgres", "root");
     }
-
-
     public String No(){
         return "No";
     }

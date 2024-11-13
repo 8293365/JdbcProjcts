@@ -77,7 +77,7 @@ public class Main {
         // Initialize API client and database connection
         PokeApiClient apiClient = new PokeApiClient();
         RemConnection remConnection = new RemConnection();
-        Connection connection = remConnection;
+        Connection connection = remConnection.WRgetConnection();
 
         try {
             // Fetch Pikachu data from the PokeAPI
